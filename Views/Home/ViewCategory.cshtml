@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "ViewCategory";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<br />
+<br />
+<h1 style="text-align:center;background-color:darkcyan">View Question</h1>
+
+
+<div style="overflow: scroll">
+
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Total Question</th>
+                <th>View All Questions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewData["List"] as List<OnlineExam.Models.QuesCategory>)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.TotalQuestion</td>
+                    <td><a class="btn btn-success" href="@Url.Action("ViewAllQuestions",new {id=item.Id })">View Questions</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

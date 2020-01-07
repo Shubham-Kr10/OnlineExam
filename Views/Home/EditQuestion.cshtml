@@ -1,0 +1,118 @@
+﻿@model OnlineExam.Models.Question
+
+
+
+@{
+    ViewBag.Title = "EditQuestion";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+
+<br />
+<br />
+<h1 style="text-align:center;background-color:darkcyan">EditQuestion</h1>
+<p>
+    @*  @Html.ActionLink("Back", "AddCategory")*@
+    <button onclick="location.href = '@Url.Action("ViewCategory", "Home")'; return false;" class="btn btn-success">Back To View All Questions</button>
+</p>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+
+    <div class="form-horizontal">
+        <h4>Question</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OPA, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OPA, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OPA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OPB, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OPB, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OPB, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OPC, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OPC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OPC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OPD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OPD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OPD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.COP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.COP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.COP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <!-- <div class="form-group">
+              @* @Html.LabelFor(model => model.QuesCategoryId, "QuesCategoryId", htmlAttributes: new { @class = "control-label col-md-2" })
+              <div class="col-md-10">
+                 @Html.DropDownList("QuesCategoryId", null, htmlAttributes: new { @class = "form-control" })
+                  @Html.ValidationMessageFor(model => model.QuesCategoryId, "", new { @class = "text-danger" })*@
+              </div>
+          </div>-->
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@* <div>
+        @Html.ActionLink("Back to List", "ViewQuestion")
+    </div>*@

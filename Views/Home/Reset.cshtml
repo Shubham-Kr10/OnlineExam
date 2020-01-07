@@ -1,0 +1,64 @@
+﻿@model OnlineExam.Models.Admin
+
+@{
+    ViewBag.Title = "Reset";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<br />
+<br />
+
+@using (Html.BeginForm("Reset", "Home", FormMethod.Post, new
+{ style = "padding:10px 50px 100px;margin-right:100px;margin-top:50px;border:1px solid black;" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h1 style="text-align:center;background-color:darkcyan">Reset Password</h1>
+
+        @if (ViewBag.msg != null)
+        {
+            <div class="alert alert-success">
+                @ViewBag.msg
+            </div>
+        }
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+
+        @if (Session["ad_id"].Equals(1))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email-Id" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            @Html.Label("New Password", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-4">
+                @Html.TextBox("NewPassword", null, new { @class = "form-control", @placeholder = "Enter Password" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Confirm Password", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Confirm Password" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-4">
+                <input type="submit" value="Update" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}

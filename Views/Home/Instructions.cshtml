@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width" />
+    <title>Instructions</title>
+</head>
+<body>
+    @if (ViewBag.error != null)
+    {
+        <div class="alert alert-danger">
+            <strong>Error!</strong> @ViewBag.error
+        </div>
+    }
+    @using (Html.BeginForm())
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                    <div class="row">
+                        <h1 style="text-align:center;background-color:darkcyan">NCAT Exam Instructions</h1>
+                        <h3 style="color:red">NOTE:Please verify your Exam name as : @TempData["profile"] from the respective Examiner</h3>
+                        1. The Exam will last for 50 minutes.<br />
+                        2. This is a multiple choice Question paper with only 1 correct Option.<br />
+                        3. For every correct answer(Submitted) 4 marks would be awarded and for a wrong answer 1 marks would be deducted
+                        from total. No marks would be deducted for skipped questions.<br />
+                        4. The Question paper Comprises of 50 questions.<br />
+                        5. Any form of illegal means during the course of examination will lead to immediate disqualification.<br />
+                        6. No electrical gadgets or stray papers are allowed in the examination hall.<br />
+                        7. If you click <strong>Save & Next</strong> button without selecting an answer, it will be considered
+                        as skipped question.<br />
+                        8. If you click <strong>Skip</strong> button without selecting an answer, it will be considered as skipped
+                        question regardless of whether you have selected an option or not.<br />
+                        9. You can click the <strong>Submit Test</strong> button any time to end the exam and submit all answer
+                        at any point of time.<br />
+                        10. Answer once submitted or skipped cannot be tried again.<br />
+                        11. Please do not refresh or close the window. If you do so your exam will end at that moment of time.<br />
+                        12. When the timer of last question runs out. Your answer will be submitted for evaluation and you
+                        will be redirected to the result page.<br />
+                        13. Buttons except the <strong>Submit Test</strong> button will be disabled when you reach the last question.
+                        Select the answer and click <strong>Submit Test.</strong>
+                        <p></p>
+                    </div>
+                    <div class="row">
+                        <input type="checkbox" name="check" /> <strong>I accept the terms and condition.</strong>
+                        <p></p>
+                    </div>
+                    <div class="row">
+                        <center> <input type="submit" value="Start Test" class="btn btn-success" /></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

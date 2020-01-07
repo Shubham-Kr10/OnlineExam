@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Dashboard</title>
+    <style type="text/css">
+        .container {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+        }
+
+        .list-group-item {
+            background-color: #111;
+            cursor: pointer;
+            border: none;
+            
+        }
+        .list-group-item:hover{
+             color: #f1f1f1;
+        }
+        .dropdown-btn {
+            text-decoration: none;
+            font-size: 20px;
+            color:darkcyan;
+            display: block;
+            border: none;
+            background-color: #111;
+            width: 100%;
+            text-align: left;
+            
+            cursor: pointer;
+            outline: none;
+        }
+        .drop {
+            text-decoration: none;
+            font-size: 20px;
+            color: darkcyan;
+            display: block;
+            border: none;
+            background-color: #111;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+        }
+            .dropdown-btn:hover {
+                color: #f1f1f1;
+            }
+
+        .active {
+            background-color: darkcyan;
+            color: white;
+        }
+
+        .dropdown-container {
+            display: none;
+            background-color: #111;
+            padding-left: 8px;
+        }
+
+        /* Optional: Style the caret down icon */
+        .fa-caret-down {
+            float: right;
+            padding-right: 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h3 style="color:darkcyan; font-family:Cooper;">Welcome Admin</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="height:1500px;border:1px solid gray;background-color:darkcyan">
+            <br />
+            <br />
+            <br />
+
+            <div style="width:116%" class="container list-group">
+
+                <button class="dropdown-btn">
+                    User Management
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <div class="list-group-item">
+                        @Html.ActionLink("Add/Remove Admin", "AddAdmin", new { @class = "list-group-item" },new{style = "color: #FFFFFF" })
+                    </div>
+                    <div class="list-group-item">
+                        @Html.ActionLink("Reset Password", "Reset", new { @class = "list-group-item"},new{style = "color: #FFFFFF"  })
+                    </div>
+                    <div class="list-group-item">
+                        @Html.ActionLink("Reset Student Password", "SReset", new { @class = "list-group-item"},new{style = "color: #FFFFFF"  })
+                    </div>
+                </div>
+                <button class="dropdown-btn">
+                    Question Set
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container" style="color:darkgoldenrod">
+                    <div class="list-group-item">
+                        @Html.ActionLink("Add Category", "AddCategory", new { @class = "list-group-item" },new{style = "color: #FFFFFF"  })
+                    </div>
+                    <div class="list-group-item">
+                        @Html.ActionLink("Add Question", "AddQuestion", new { @class = "list-group-item" } ,new{style = "color: #FFFFFF" })
+                    </div>
+                    <div class="list-group-item">
+                        @Html.ActionLink("View Questions", "ViewCategory", new { @class = "list-group-item" },new{style = "color: #FFFFFF"  })
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <button onclick="location.href = '@Url.Action("SetExam", "Home")'; return false;" class="drop">Set Exam</button>
+                </div>
+
+                <div class="list-group-item">
+                    <button onclick="location.href = '@Url.Action("Dashboard", "Home")'; return false;" class="drop">Report</button>
+                </div>
+                <div class="list-group-item">
+                    <button onclick="location.href = '@Url.Action("Logout", "Home")'; return false;" class="drop">Logout</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" style="height:1500px;border:1px solid gray;">
+
+            @RenderBody()
+        </div>
+    </div>
+    <script>
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

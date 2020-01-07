@@ -1,0 +1,84 @@
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<OnlineExam.Models.Question>
+@{
+    ViewBag.Title = "ViewAllQuestions";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<br />
+<br />
+<h1 style="text-align:center;background-color:darkcyan">View All Questions</h1>
+
+<p>
+    @*  @Html.ActionLink("Back", "AddCategory")*@
+    <button onclick="location.href = '@Url.Action("ViewCategory", "Home")'; return false;" class="btn btn-success">Back</button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Text
+        </th>
+        <th>
+            Option A
+        </th>
+        <th>
+            Option B
+        </th>
+        <th>
+            Option C
+        </th>
+        <th>
+            Option D
+        </th>
+        <th>
+            Correct Option
+        </th>
+        <th>
+            Question Category
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OPA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OPB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OPC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OPD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuesCategory.Name)
+            </td>
+            <td>
+
+
+                @Html.ActionLink("Edit", "EditQuestion", new { id = item.Id }) |
+
+                @Html.ActionLink("Delete", "DeleteQuestion", new { id = item.Id })
+
+            </td>
+        </tr>
+    }
+
+</table>
+<div id="container" style="margin-left:20px">
+    <div class="pagination" style="        margin-left: 400px
+">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount @Html.PagedListPager(Model, page => Url.Action("ViewAllQuestions", new { page }))
+    </div>
+</div>

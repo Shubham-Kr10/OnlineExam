@@ -1,0 +1,117 @@
+﻿@model OnlineExam.Models.Question
+
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width" />
+    <title>Ncat</title>
+</head>
+<body>
+    <pre style="background-color:darkcyan">
+    <strong id="timecountdown" style="color:darkred;font-size:large"></strong>
+    <strong style="float:right"> User Name: @Session["st_Email"]</strong>
+    </pre>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-xs-10 col-sm-10">
+
+                    <div class="row">
+                        <h3 style="font-family:Arial">@Html.HiddenFor(x => x.Id)</h3>
+                    </div>
+       
+                    <div class="row">
+                        <h3 style="font-family:Arial">@TempData["sl"].) @Html.DisplayFor(x => x.Text)</h3>
+                    </div>
+
+                    <div class="row">
+                        <label>  <input type="radio" name="option" value="A" />@Model.OPA</label>
+                        @* <h6>@Html.RadioButtonFor(x => x.Id, "A") @Model.OPA</h6>*@
+
+                    </div>
+                    <div class="row">
+                        <label>  <input type="radio" name="option" value="B" />@Model.OPB</label>
+                        @*  <h6>@Html.RadioButtonFor(x => x.Id, "B") @Model.OPB</h6>*@
+
+                    </div>
+                    <div class="row">
+                        <label>   <input type="radio" name="option" value="C" />@Model.OPC</label>
+                        @* <h6>@Html.RadioButtonFor(x => x.Id, "C") @Model.OPC</h6>*@
+
+                    </div>
+                    <div class="row">
+                        <label>   <input type="radio" name="option" value="D" />@Model.OPD</label>
+                        @* <h6>@Html.RadioButtonFor(x => x.Id, "D") @Model.OPD</h6>*@
+
+                    </div>
+                    <div class="row" style="display:none">
+                        <h6>@Html.TextBoxFor(x => x.COP)</h6>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Save & Next" name="save" class="btn btn-primary" style="font-weight: bold;background-color:green;font-display:block;color:black" />&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="submit" value="Skip" class="btn btn-primary" style="font-weight: bold;background-color:cornflowerblue;font-display:block;color:black" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="submit" value="End Test" name="submit" class="btn btn-primary" style="font-weight: bold;background-color:red;font-display:block;color:black" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+    <script>
+      
+
+
+
+    var dt = "@Session["Rem_Time"]";
+    var dateAr = dt.split('-');
+   // var newDate = dateAr[1] + '/' + dateAr[0] + '/' + dateAr[2];
+
+        var end = new Date(dateAr[1] + '/' + dateAr[0] + '/' + dateAr[2]);
+    var _second = 1000;
+    var _minute = _second * 60;
+    var _hour = _minute * 60;
+    var _day = _hour * 24;
+    var timer;
+   
+        function showRemaining()
+        {
+        var now = new Date();
+        var distance = end - now;
+            
+           if (distance <0) {
+                clearInterval(timer);
+               // document.getElementById('timercountdown').innerHTML = 'Count Down Ends!';
+               alert('Your time has Expired!');
+             window.location.href = '/Home/EndExam';
+              return;
+
+            }
+           // var days = Math.floor(distance / _day);
+            var hours = Math.floor((distance % _day) / _hour);
+            var minutes = Math.floor((distance % _hour) / _minute);
+            var seconds = Math.floor((distance % _minute) / _second);
+            
+
+            document.getElementById('timecountdown').innerHTML = "Time Remaining:" + hours + ":" + minutes + ":" + seconds;
+            
+        }
+         
+    timer = setInterval(showRemaining, 1000);
+    </script>
+</body>
+</html>

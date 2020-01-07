@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>EndExam</title>
+</head>
+<body style="text-align:center">
+    <div >
+        <h3 style="color:darkcyan">Thank You for taking the Test</h3><br />
+    </div>
+    <div>
+        <h4 style="color:green"><strong>Summary of your Test</strong></h4>
+    </div>
+    <div style="border:1px solid black; padding:50px 100px 50px 100px">
+        <h3 style="color:darkcyan">
+            Name: @TempData["st_Fname"]
+            @*<br />
+            Email: @TempData["st_Email"]*@
+            <br />
+            Attempted: @TempData["attempt"]
+            <br />
+            Your Score: @TempData["score"]
+            <br />
+            <br />
+            Your Highest Score:~
+            <br />
+            @TempData["Sub1"] : @TempData["mar1"]
+            @*<br />
+            @TempData["Sub2"] : @TempData["mar2"]
+            <br />
+            @TempData["Sub3"] : @TempData["mar3"]*@
+
+        </h3>
+    </div>
+    <div style="color:darkcyan">
+        <h4>Your Test is complete. Wait for further instruction from HR department.</h4>
+    </div>
+    <div>
+        <button onclick="location.href = '@Url.Action("Index", "Home")'; return false;" class="btn btn-success" style="background-color:darkcyan">Exit</button>
+    </div>
+</body>
+</html>

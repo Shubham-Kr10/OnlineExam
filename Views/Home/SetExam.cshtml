@@ -1,0 +1,217 @@
+﻿@model IEnumerable<OnlineExam.Models.ProfileExam>
+
+
+
+
+@{
+    ViewBag.Title = "Set Exam";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<br />
+<br />
+
+
+<h1 style="text-align:center;background-color:darkcyan">Set Exam</h1>
+<hr />
+
+
+
+@using (Html.BeginForm("SetExam", "Home", FormMethod.Post))
+{
+
+
+
+    @Html.AntiForgeryToken()
+    if (@TempData["msg"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["msg"]
+        </div>
+    }
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+
+        <div class="form-group">
+
+            @Html.Label("Current Profile:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.DropDownList("Id", ViewBag.list as SelectList, "--Select--", htmlAttributes: new { @class = "form-control" })
+
+
+
+                @* @Html.ValidationMessageFor(model => model.Profile.Id)*@
+            </div>
+            <div class="col-md-2">
+                <input type="submit" name="ApplyProfile" value="Apply" class="btn btn-success" />
+            </div>
+
+            @Html.Label("Add Profile:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.TextBox("AddProfile", null, new { @class = "form-control", @placeholder = "Add a Profile" })
+            </div>
+
+
+
+            <div class="col-md-2">
+                <input type="submit" value="Add" class="btn btn-success" />
+            </div>
+        </div>
+        <p></p>
+        <hr />
+        <div class="form-horizontal">
+            @Html.Label("Set Total", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                <input type="number" name="num" value="Number" class="form-control" />
+
+
+
+            </div>
+            @* <h4>Total Questions Selected :@TempData["selectedQues"]</h4>*@
+        </div>
+
+
+
+
+        <div class="form-group">
+
+
+
+        </div>
+    </div>
+    <table class="table">
+        @Html.ValidationSummary(true)
+        <tr>
+
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.Exam.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exam.CheckBox)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exam.NoOfQues)
+            </th>
+            <!--<th>Calculation for NoOfQues</th>-->
+            <th>Total Question</th>
+        </tr>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+
+
+
+                    @Html.HiddenFor(modelItem => item.Exam.Id)
+
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Exam.Category)
+                    </td>
+
+
+
+                    @*  @if (item.Exam.CheckBox.Equals(true))
+                        {
+                          <td>
+
+
+
+                              @Html.CheckBoxFor(modelItem=>item.Exam.CheckBox)
+                               @Html.ValidationMessageFor(model => item.Exam.CheckBox)
+                          </td>
+
+
+
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.CheckBoxFor(modelItem=>item.Exam.CheckBox, false)
+                             @Html.ValidationMessageFor(model => item.Exam.CheckBox)
+                                </td>
+                        }*@
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.Exam.CheckBox)
+                        @Html.ValidationMessageFor(model => item.Exam.CheckBox)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => item.Exam.NoOfQues, new { htmlAttributes = new { @class = "txt" } })
+                        @Html.ValidationMessageFor(model => item.Exam.NoOfQues ,"", new { @class = "txt" })
+                       
+                    </td>
+                   <!--- <td>
+                        <input class="txt" type="text" name="txt" />
+                    </td>-->
+
+                    @foreach (var itm in ViewData["QuesCat"] as List<OnlineExam.Models.QuesCategory>)
+                    {
+                        if (itm.Name == item.Exam.Category)
+                        {
+                            <td>@itm.TotalQuestion</td>
+                        }
+
+
+
+                    }
+                </tr>
+
+
+
+            }
+
+            
+        }
+     
+    <tr id="summation">
+        <td>&nbsp;</td>
+        <!--<td>&nbsp;</td>-->
+        <td align="right">Sum :</td>
+        <td align="center"><span id="sum">0</span></td>
+    </tr>
+
+    </table>
+    <hr />
+    <div>
+        <h4>Total Questions Selected Previously :</h4> @Model.Sum(i => i.Exam.NoOfQues)
+    </div>
+    <div class="col-md-5">
+        <input type="submit" name="sub" value="Set Exam" class="btn btn-success" />
+    </div>
+
+}
+<script>
+    $(document).ready(function () {
+
+        
+        $(".txt").each(function () {
+
+            $(this).keyup(function () {
+                calculateSum();
+            });
+        });
+
+    });
+
+    function calculateSum() {
+
+        var sum = 0;
+       
+        $(".txt").each(function () {
+
+           
+            if (!isNaN(this.value) && this.value.length != 0) {
+                sum += parseFloat(this.value);
+            }
+
+        });
+       
+        $("#sum").html(sum.toFixed(2));
+    }
+
+</script>

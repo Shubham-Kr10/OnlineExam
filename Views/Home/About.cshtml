@@ -1,0 +1,115 @@
+﻿@model IEnumerable<OnlineExam.Models.ProfileExam>
+    
+
+ @{
+    ViewBag.Title = "Set Exam";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+  }
+
+      <h1 style="text-align:center;background-color:#808080">Set Exam</h1>
+     <hr />
+
+@using (Html.BeginForm("About", "Home", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+    if (@TempData["msg"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["msg"]
+        </div>
+    }
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                @Html.Label("Current Profile:", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.DropDownList("Id", ViewBag.list as SelectList, "--Select--", htmlAttributes: new { @class = "form-control" })
+
+                    @* @Html.ValidationMessageFor(model => model.Profile.Id)*@
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" name="ApplyProfile" value="Apply" class="btn btn-success" />
+                </div>
+                @Html.Label("Add Profile:", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBox("AddProfile", null, new { @class = "form-control", @placeholder = "Add a Profile" })
+                </div>
+
+                <div class="col-md-2">
+                    <input type="submit" value="Add" class="btn btn-success" />
+                </div>
+            </div>
+            <p></p>
+            <hr />
+            <div class="form-horizontal">
+                @Html.Label("Set Total", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    <input type="number" name="num" value="Number" class="form-control" />
+                    
+                </div>
+            </div>
+
+
+            <div class="form-group">
+
+            </div>
+        </div>
+        <table class="table">
+            @Html.ValidationSummary(true)
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Exam.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Exam.CheckBox)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Exam.NoOfQues)
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    
+                        @Html.HiddenFor(modelItem => item.Exam.Id)
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Exam.Category)
+                    </td>
+
+                      @*  @if (item.Exam.CheckBox.Equals(true))
+                        {
+                          <td>
+                              
+                              @Html.CheckBoxFor(modelItem=>item.Exam.CheckBox)
+                               @Html.ValidationMessageFor(model => item.Exam.CheckBox)
+                          </td>
+
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.CheckBoxFor(modelItem=>item.Exam.CheckBox, false)
+                             @Html.ValidationMessageFor(model => item.Exam.CheckBox)
+                                </td>
+                        }*@
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.Exam.CheckBox)
+                        @Html.ValidationMessageFor(model => item.Exam.CheckBox)
+                    </td>
+                    <td>
+                        @Html.EditorFor(modelItem => item.Exam.NoOfQues)
+                        @Html.ValidationMessageFor(model => item.Exam.NoOfQues)
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="4">
+                    <input type="submit" name="sub" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    }

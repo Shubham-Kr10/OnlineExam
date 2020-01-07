@@ -1,0 +1,429 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<OnlineExam.Models.Report>
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    // WebGrid webGrid = new WebGrid(source: Model);
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+
+  @*  td.highlight {
+        background-color: #2980b9 !important;
+    }
+    table#myTable.dataTable tbody tr:hover {
+  background-color: #3498db;
+}
+
+table#myTable.dataTable tbody tr:hover > .sorting_1 {
+  background-color: #3498db;
+}
+      *@
+div.container {
+        width: 80%;
+    }
+    .custom {
+        font-size: 8px;
+        font-family: Arial;
+    }
+    .bottomcustom, .topcustom {
+        font-size: 8px;
+        font-family: Arial;
+        width: 540px;
+    }
+ #divLeft{ float:left}
+ #divCenter{ float:unset}
+ #divRight{float:right}
+</style>
+
+<div>
+    <br />
+    <br />
+    <h1 style="text-align:center;background-color:darkcyan">Report</h1>
+    @*search area*@
+<div class="col-md-10">
+    <div id="divLeft" class="col-md-4">
+
+        <div class="col-md-4">
+            <strong>Minimum score&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+            <input type="text" id="min" name="min" size="6" />
+        </div>
+
+        <div class="col-md-4">
+            <strong>Maximum score&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+            <input type="text" id="max" name="max" size="6" />
+        </div>
+    </div>
+    <div class="col-md-4" align="center">
+        <div class="col-md-4">
+            <strong>Minimum Percentage&nbsp;</strong>
+            <input type="text" id="minP" name="min" size="6" />
+        </div>
+
+        <div class="col-md-4">
+            <strong>Maximum Percentage&nbsp;</strong>
+            <input type="text" id="maxP" name="max" size="6" />
+        </div>
+    </div>
+    <div  class="col-md-4" align="right">
+        <div class="col-md-4">
+            <strong>From Date</strong>
+            <input type="text" id="fini" name="min" size="6" />
+        </div>
+
+        <div class="col-md-4">
+            <strong>To<br/>Date &nbsp;</strong>
+            <input type="text" id="ffin" name="max" size="6" />
+        </div>
+    </div>
+</div>
+                @* <table border="0" cellspacing="2" cellpadding="2" float: right;>
+                <tbody>
+                    <tr>
+                        <td>Minimum Percentage:&nbsp;</td>
+                        <td><input type="text" id="minP" name="min" size="6"></td>
+                    </tr>
+                    <tr>
+                        <td>Maximum Percentage:&nbsp;</td>
+                        <td><input type="text" id="maxP" name="max" size="6"></td>
+                    </tr>
+                </tbody>
+            </table>*@
+            </div>
+            <!-- <div padding="20px">
+        <h1 style="text-align:center;background-color:#808080">Report</h1>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Date</td>
+                    <td><input type="text" id="Date" /></td>
+                    <td>Score</td>
+                    <td>
+                        <select id="Score" style="width:100px">
+                            <option value="">All Scores</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="7">7</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="button" value="Search" id="btnSearch" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>-->
+            @*jquery database*@
+            <div>
+
+                <table id="myTable" class="table table-responsive table-striped compact">
+                    <thead>
+                        <tr bgcolor="darkcyan">
+                            <th>Id</th>
+                            <th>StudentName</th>
+                            <th>Email</th>
+                            <th>ExamDate</th>
+                            <th>Exam</th>
+                            <th>Best1</th>
+                            <th>Marks1</th>
+                            <th>Best2</th>
+                            <th>Marks2</th>
+                            <th>Best3</th>
+                            <th>Marks3</th>
+                            <th>Total Score</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    @*   <tbody>
+                @if (Model == null)
+                {
+                    <span>no items found</span>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExamName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Score)
+                            </td>
+                            <!-- <td>
+
+                  @* @Html.ActionLink("Delete", "DeleteResult", new { id = item.Id })
+                </td>-->
+                        </tr>
+                    }
+                }
+                </tbody>*@
+                    <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Date</th>
+                            <th>Exam</th>
+                            <th>Best1</th>
+                            <th>Marks1</th>
+                            <th>Best2</th>
+                            <th>Marks2</th>
+                            <th>Best3</th>
+                            <th>Marks3</th>
+                            <th>Score</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+        </div>
+@*Datatable css*@
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" />
+
+
+@*jquery*@
+@section Scripts{
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+  
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                dom: 'Bfrtip',
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    ['10 rows', '25 rows', '50 rows', 'Show all']
+                ],
+                buttons: [
+                    'pageLength',
+                    {
+                        extend: 'copy',
+                        title: 'Result'
+                    },
+                    {
+                        extend: 'csv',
+                        title: 'Result'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Result'
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Result'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Result',
+                        pageSize: 'A3'
+                    }
+                ],
+                "ajax": {
+                    "url": "/home/Result",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "StudentId", "autowidth": true },
+                    { "data": "StudentName", "autowidth": true },
+                    { "data": "Email", "autowidth": true },
+                    { "data": "Date", "autowidth": true },
+                    { "data": "ExamName", "autowidth": true },
+                    { "data": "Subject1", "autowidth": true },
+                    { "data": "Marks1", "autowidth": true },
+                    { "data": "Subject2", "autowidth": true },
+                    { "data": "Marks2", "autowidth": true },
+                    { "data": "Subject3", "autowidth": true },
+                    { "data": "Marks3", "autowidth": true },
+                    { "data": "Score", "autowidth": true },
+                    { "data": "Percentage", "autowidth": true },
+                ]
+            });
+
+        });
+    </script>
+
+
+    <script type="text/javascript">
+
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = parseInt($('#min').val(), 10);
+                var max = parseInt($('#max').val(), 10);
+                var score = parseFloat(data[11]) || 0; // use data for the score column
+
+                if ((isNaN(min) && isNaN(max)) ||
+                    (isNaN(min) && score <= max) ||
+                    (min <= score && isNaN(max)) ||
+                    (min <= score && score <= max)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            var table = $('#myTable').DataTable();
+
+            
+            $('#min, #max').keyup(function () {
+                table.draw();
+            });
+        });
+    </script>
+    <script type="text/javascript">
+
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = parseInt($('#minP').val(), 10);
+                var max = parseInt($('#maxP').val(), 10);
+                var score = parseFloat(data[12]) || 0; // use data for the percentage column
+
+                if ((isNaN(min) && isNaN(max)) ||
+                    (isNaN(min) && score <= max) ||
+                    (min <= score && isNaN(max)) ||
+                    (min <= score && score <= max)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            var table = $('#myTable').DataTable();
+
+            $('#minP, #maxP').keyup(function () {
+                table.draw();
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+           
+            $('#myTable tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            });
+
+            
+            var table = $('#myTable').DataTable();
+
+           
+            table.columns().every(function () {
+                var that = this;
+
+                $('input', this.footer()).on('keyup change clear', function () {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#myTable').DataTable();
+
+            $('#myTable tbody')
+                .on('mouseenter', 'td', function () {
+                    var colIdx = table.cell(this).index().column;
+
+                    $(table.cells().nodes()).removeClass('highlight');
+                    $(table.column(colIdx).nodes()).addClass('highlight');
+                });
+        });
+    </script>
+   @* <script>
+        $(document).ready(function() {
+    $('#myTable').dataTable( {
+    "columns": [
+        { "width": "150px" },
+        { "width": "150px" },
+        { "width": "50px" },
+        { "width": "40px" },
+        { "width": "50px" },
+        { "width": "100px" }
+    ],
+        "dom": '<"topcustom"lfr>t<"bottomcustom"ip>'
+    });
+});
+    </script>*@
+
+    <script>
+        $.fn.dataTableExt.afnFiltering.push(
+    function( oSettings, aData, iDataIndex ) {
+        var iFini = document.getElementById('fini').value;
+        var iFfin = document.getElementById('ffin').value;
+        var iStartDateCol = 3;
+        var iEndDateCol = 3;
+ 
+        iFini=iFini.substring(3,10) + iFini.substring(3,5)+ iFini.substring(0,2);
+        iFfin=iFfin.substring(3,10) + iFfin.substring(3,5)+ iFfin.substring(0,2);
+ 
+        var datofini=aData[iStartDateCol].substring(3,10) + aData[iStartDateCol].substring(3,5)+ aData[iStartDateCol].substring(0,2);
+        var datoffin=aData[iEndDateCol].substring(3,10) + aData[iEndDateCol].substring(3,5)+ aData[iEndDateCol].substring(0,2);
+ 
+        if ( iFini === "" && iFfin === "" )
+        {
+            return true;
+        }
+        else if ( iFini <= datofini && iFfin === "")
+        {
+            return true;
+        }
+        else if ( iFfin >= datoffin && iFini === "")
+        {
+            return true;
+        }
+        else if (iFini <= datofini && iFfin >= datoffin)
+        {
+            return true;
+        }
+        return false;
+    }
+        );
+        $(document).ready(function() {
+      var table = $('#myTable').DataTable();
+ 
+      // Add event listeners to the two range filtering inputs
+      $('#fini').keyup( function() { table.draw(); } );
+      $('#ffin').keyup( function() { table.draw(); } );
+  } );
+    </script>
+
+}
+
