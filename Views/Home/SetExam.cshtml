@@ -96,7 +96,7 @@
                 @Html.DisplayNameFor(model => model.Exam.NoOfQues)
             </th>
             <!--<th>Calculation for NoOfQues</th>-->
-            <th>Total Question</th>
+            <th>Total Questions In Db</th>
         </tr>
         @if (Model != null)
         {
@@ -179,6 +179,9 @@
     <hr />
     <div>
         <h4>Total Questions Selected Previously :</h4> @Model.Sum(i => i.Exam.NoOfQues)
+    </div>
+    <div>
+        <h6>NOTE:If changing the selected value then value of sum must be equal to Set total</h6>
     </div>
     <div class="col-md-5">
         <input type="submit" name="sub" value="Set Exam" class="btn btn-success" />
